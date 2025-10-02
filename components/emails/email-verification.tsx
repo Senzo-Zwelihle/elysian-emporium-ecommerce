@@ -73,13 +73,13 @@ const EmailVerification = (props: VerificationEmailProps) => {
 
               {/* Additional Info */}
               <Text className="text-[14px] text-gray-600 leading-[20px] mb-[24px] text-center">
-                Once verified, you'll have full access to your Elysian Emporium
+                Once verified, you&apos;ll have full access to your Elysian Emporium
                 account and can start exploring our premium collection.
               </Text>
 
               {/* Didn't Sign Up */}
               <Text className="text-[14px] text-gray-600 leading-[20px] text-center">
-                If you didn't create an account with us, you can safely ignore
+                If you didn&apos;t create an account with us, you can safely ignore
                 this email.
               </Text>
             </Section>

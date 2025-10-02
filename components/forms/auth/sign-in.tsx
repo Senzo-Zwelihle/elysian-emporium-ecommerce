@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useTransition } from "react"
+import React, { useState, useEffect, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -27,15 +27,25 @@ import { GoogleIcon } from "@/components/icons/google"
 import { GitHubIcon } from "@/components/icons/github"
 import { signInAction } from "@/server/actions/auth/user"
 import { signInFormSchema } from "@/schemas/auth/sign-in"
+import { Badge } from "@/components/ui/badge"
 import ElysianEmporiumSignInDark from "@/public/images/sign-up-design-dark.png"
 import ElysianEmporiumSignInLight from "@/public/images/sign-up-design-light.png"
 
 const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
-  // form/socialstates
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [gitHubPending, startGitHubTransition] = useTransition()
   const [googlePending, startGoogleTransition] = useTransition()
+
+  // last login method state
+  const [lastLoginMethod, setLastLoginMethod] = useState<string | null>(null)
+
+  useEffect(() => {
+    const storedMethod = localStorage.getItem("lastLoginMethod")
+    if (storedMethod) {
+      setLastLoginMethod(storedMethod)
+    }
+  }, [])
 
   // validation
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -46,7 +56,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
     }
   })
 
-  // submit form
+  // submit form (email/password)
   async function onSubmit(values: z.infer<typeof signInFormSchema>) {
     setIsLoading(true)
 
@@ -56,6 +66,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
     )
 
     if (success) {
+      localStorage.setItem("lastLoginMethod", "password")
       toast.success(message as string)
       router.push("/")
     } else {
@@ -65,7 +76,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
     setIsLoading(false)
   }
 
-  // social sign up
+  // social sign in
   const signInWithGitHub = () => {
     startGitHubTransition(async () => {
       await authClient.signIn.social({
@@ -73,6 +84,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
         callbackURL: "/",
         fetchOptions: {
           onSuccess: () => {
+            localStorage.setItem("lastLoginMethod", "github")
             toast.success("Signed in successfully")
           },
           onError: () => {
@@ -90,6 +102,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
         callbackURL: "/",
         fetchOptions: {
           onSuccess: () => {
+            localStorage.setItem("lastLoginMethod", "google")
             toast.success("Signed in successfully...")
           },
           onError: () => {
@@ -99,6 +112,7 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
       })
     })
   }
+
   return (
     <Form {...form}>
       <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -112,6 +126,8 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                     Sign into your account
                   </p>
                 </div>
+
+                {/* Email field */}
                 <div className="grid gap-3">
                   <FormField
                     control={form.control}
@@ -127,6 +143,8 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                     )}
                   />
                 </div>
+
+                {/* Password field */}
                 <div className="grid gap-3">
                   <div className="flex flex-col gap-2">
                     <FormField
@@ -154,70 +172,145 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                     </Link>
                   </div>
                 </div>
+
+                {/* Email/Password Sign In */}
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <LoaderIcon className="size-4 animate-spin" />
                   ) : (
-                    "Sign In"
+                    <>
+                      Sign In
+                      {lastLoginMethod === "password" && (
+                        <Badge variant="secondary" className="ml-2 text-[10px]">
+                          Last used
+                        </Badge>
+                      )}
+                    </>
                   )}
                 </Button>
+
+                {/* Divider */}
                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                   <span className="bg-background text-muted-foreground relative z-10 px-2">
                     Or continue with
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+
+                {/* Social Buttons */}
+                {/* <div className="grid grid-cols-2 gap-4">
                   <Button
-                    variant="outline"
+                    variant={
+                      lastLoginMethod === "google" ? "default" : "outline"
+                    }
                     type="button"
                     className="w-full"
                     onClick={signInWithGoogle}
                     disabled={googlePending}
                   >
                     {googlePending ? (
-                      <>
-                        <Spinner />
-                      </>
+                      <Spinner />
                     ) : (
                       <>
                         <GoogleIcon />
                         Google
+                        {lastLoginMethod === "google" && (
+                          <Badge
+                            variant="secondary"
+                            className="ml-2 text-[10px]"
+                          >
+                            Last used
+                          </Badge>
+                        )}
                       </>
                     )}
                   </Button>
 
                   <Button
-                    variant="outline"
+                    variant={
+                      lastLoginMethod === "github" ? "default" : "outline"
+                    }
                     type="button"
                     className="w-full"
                     onClick={signInWithGitHub}
                     disabled={gitHubPending}
                   >
                     {gitHubPending ? (
-                      <>
-                        <Spinner />
-                      </>
+                      <Spinner />
                     ) : (
                       <>
                         <GitHubIcon />
                         GitHub
+                        {lastLoginMethod === "github" && (
+                          <Badge
+                            variant="secondary"
+                            className="ml-2 text-[10px]"
+                          >
+                            Last used
+                          </Badge>
+                        )}
                       </>
                     )}
                   </Button>
-
-                  {/* free plan of resend only sends to your email so its not much useful */}
-                  {/* <Link href={"/otp-sign-in"}>
+                </div> */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Google */}
+                  <div className="relative">
+                    {lastLoginMethod === "google" && (
+                      <Badge
+                        variant="default"
+                        className="absolute top-0 right-0 translate-x-1 -translate-y-1 text-[10px]"
+                      >
+                        Last used
+                      </Badge>
+                    )}
                     <Button
                       variant="outline"
                       type="button"
                       className="w-full"
-                     
+                      onClick={signInWithGoogle}
+                      disabled={googlePending}
                     >
-                      <FingerprintIcon />
-                      <span className="text-base">OTP</span>
+                      {googlePending ? (
+                        <Spinner />
+                      ) : (
+                        <>
+                          <GoogleIcon />
+                          Google
+                        </>
+                      )}
                     </Button>
-                  </Link> */}
+                  </div>
+
+                  {/* GitHub */}
+                  <div className="relative">
+                    {lastLoginMethod === "github" && (
+                      <Badge
+                        variant="default"
+                        className="absolute -top-3 right-2 rounded-full px-2 py-0.5 text-[10px]"
+                      >
+                        Last used
+                      </Badge>
+                    )}
+                    <Button
+                      variant="outline"
+                      type="button"
+                      className="w-full"
+                      onClick={signInWithGitHub}
+                      disabled={gitHubPending}
+                    >
+                      {gitHubPending ? (
+                        <Spinner />
+                      ) : (
+                        <>
+                          <GitHubIcon />
+                          GitHub
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
+
+                {/* Footer */}
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
@@ -229,6 +322,8 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                 </div>
               </div>
             </form>
+
+            {/* Side Image */}
             <div className="bg-muted relative hidden md:block">
               <Image
                 src={ElysianEmporiumSignInDark}
@@ -243,6 +338,8 @@ const SignInForm = ({ className, ...props }: React.ComponentProps<"div">) => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Terms */}
         <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
           By clicking continue, you agree to our{" "}
           <Link href="#">Terms of Service</Link> and{" "}

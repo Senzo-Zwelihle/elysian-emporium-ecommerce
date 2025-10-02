@@ -30,7 +30,7 @@ const InvitationEmail = (props: InvitationEmailProps) => {
       <Tailwind>
         <Head />
         <Body className="bg-white font-sans">
-          <Preview>You've been invited to join {organizationName}</Preview>
+          <Preview>You&apos;ve been invited to join {organizationName}</Preview>
           <Container className="max-w-[600px] mx-auto">
             {/* Header */}
             <Section className="px-[40px] pt-[48px] pb-[32px]">
@@ -51,7 +51,7 @@ const InvitationEmail = (props: InvitationEmailProps) => {
 
               <Text className="text-[16px] text-gray-700 leading-[24px] mb-[32px] text-center">
                 Hi there, you have been invited by {inviterName} to join the
-                organization "{organizationName}".
+                organization &apos;{organizationName}&apos;.
               </Text>
 
               {/* Accept Button */}

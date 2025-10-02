@@ -81,7 +81,7 @@ const OneTimePasswordEmail = (props: OneTimePasswordEmailProps) => {
               </Section>
 
               <Text className="text-[14px] text-gray-600 leading-[22px] text-center mb-[24px]">
-                If you didn't request this verification code, please ignore this
+                If you didn&apos;t request this verification code, please ignore this
                 email or{" "}
                 <Link
                   href="mailto:support@elysianemporium.com"
