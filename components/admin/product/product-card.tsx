@@ -139,7 +139,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 <span>Brand: {product.brand.name}</span>
                 <span>•</span>
                 <div className="flex items-center gap-1">
-                  <Warehouse className="h-3 w-3" />
                   {product.warehouse.name}
                 </div>
               </div>
