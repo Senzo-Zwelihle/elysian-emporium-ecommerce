@@ -1,9 +1,19 @@
 import React from "react"
+import Billboards from "@/components/store/home/billboards"
+import Collections from "@/components/store/home/collections"
+import Promotions from "@/components/store/home/promotions"
+import FeaturedProducts from "@/components/store/home/featured-products"
+import PaymentBrands from "@/components/store/home/payment-brands"
 
 const Store = () => {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 sm:p-20">
-      <h1 className="text-9xl">Home</h1>
+    <div className="mb-40 space-y-40 overflow-hidden">
+      <Billboards />
+      <FeaturedProducts />
+      <Collections />
+      <Promotions />
+      <PaymentBrands />
+      {/* <FAQsThree/> */}
     </div>
   )
 }
