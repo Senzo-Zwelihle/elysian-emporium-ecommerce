@@ -1,7 +1,7 @@
-import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { useIsAdmin } from "@/hooks/use-admin";
+import { createUploadthing, type FileRouter } from "uploadthing/next"
+import { useIsAdmin } from "@/hooks/use-admin"
 
-const f = createUploadthing();
+const f = createUploadthing()
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
@@ -13,151 +13,151 @@ export const ourFileRouter = {
        * @see https://docs.uploadthing.com/file-routes#route-config
        */
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions and file types for this FileRoute
     .middleware(async ({}) => {
       // This code runs on your server before upload
       // const user = await auth(req); // Original line
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
       // If you throw, the user will not be able to upload
       // if (!user) throw new UploadThingError("Unauthorized"); // Original line
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata.userId);
+      console.log("Upload complete for userId:", metadata.userId)
 
-      console.log("file url", file.ufsUrl);
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
 
   // brand image
   brandImageUploader: f({
     image: {
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
   // collection
   collectionImageUploader: f({
     image: {
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
   // billboard
   billboardImageUploader: f({
     image: {
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
   // promotion
   promotionImageUploader: f({
     image: {
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
   // product
   productImageUploader: f({
     image: {
       maxFileSize: "16MB",
-      maxFileCount: 10,
-    },
+      maxFileCount: 10
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { uploadedBy: metadata.userId }
     }),
   // document
   documentUploader: f({
     "application/pdf": {
       maxFileSize: "16MB",
-      maxFileCount: 1,
-    },
+      maxFileCount: 1
+    }
   })
     // Set permissions
     .middleware(async ({}) => {
-      const session = await useIsAdmin();
+      const session = await useIsAdmin()
 
-      return { userId: session.user.id };
+      return { userId: session.user.id }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-      console.log("file url", file.ufsUrl);
+      console.log("Upload complete for userId:", metadata.userId)
+      console.log("file url", file.ufsUrl)
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
-    }),
-} satisfies FileRouter;
+      return { uploadedBy: metadata.userId }
+    })
+} satisfies FileRouter
 
-export type OurFileRouter = typeof ourFileRouter;
+export type OurFileRouter = typeof ourFileRouter

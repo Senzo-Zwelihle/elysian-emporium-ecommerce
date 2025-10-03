@@ -1,5 +1,5 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import * as React from "react"
+import type { SVGProps } from "react"
 
 const ZarIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -21,6 +21,6 @@ const ZarIcon = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     ></path>
   </svg>
-);
+)
 
-export default ZarIcon;
+export default ZarIcon

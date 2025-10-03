@@ -1,29 +1,29 @@
-"use client";
+"use client"
 
-import React, { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { toast } from "sonner";
-import { LoaderIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { authClient } from "@/lib/auth-client";
+import React, { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { toast } from "sonner"
+import { LoaderIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { authClient } from "@/lib/auth-client"
 
 const OTPSignInForm = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
   // next router config
-  const router = useRouter();
+  const router = useRouter()
 
   // button states to display pending states
-  const [emailPending, startEmailTransition] = useTransition();
+  const [emailPending, startEmailTransition] = useTransition()
 
   //   keep track of email
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("")
 
   //   sign in with email
   function signInWithEmail() {
@@ -33,17 +33,17 @@ const OTPSignInForm = ({
         type: "sign-in",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Email sent successfully");
-            router.push(`/verify-request?email=${email}`);
+            toast.success("Email sent successfully")
+            router.push(`/verify-request?email=${email}`)
           },
           onError: () => {
             toast.error(
               " Internal Server Error Email not sent.Please try again. "
-            );
-          },
-        },
-      });
-    });
+            )
+          }
+        }
+      })
+    })
   }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -60,7 +60,7 @@ const OTPSignInForm = ({
                   type="email"
                   placeholder="name@example.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -68,7 +68,7 @@ const OTPSignInForm = ({
               <Button onClick={signInWithEmail} disabled={emailPending}>
                 {emailPending ? (
                   <>
-                    <LoaderIcon className="animate-spin size-4" />
+                    <LoaderIcon className="size-4 animate-spin" />
                     <span>Loading....</span>
                   </>
                 ) : (
@@ -87,7 +87,7 @@ const OTPSignInForm = ({
         <Link href="#">Privacy Policy</Link>.
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OTPSignInForm;
+export default OTPSignInForm

@@ -18,7 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
-      "lib/generated/**"
+      "lib/generated/**",
+      "components/event-calendar/calendar-wrapper.tsx"
     ]
   }
 ]

@@ -1,23 +1,23 @@
-import "server-only";
+import "server-only"
 
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+import { headers } from "next/headers"
+import { redirect } from "next/navigation"
+import { auth } from "@/lib/auth"
 
 export async function useIsAdmin() {
   const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+    headers: await headers()
+  })
 
   if (!session) {
-    return redirect("/sign-in");
+    return redirect("/sign-in")
   }
 
   // role chceck
 
   if (session.user.role !== "admin") {
-    return redirect("/unauthorized");
+    return redirect("/unauthorized")
   }
 
-  return session;
+  return session
 }

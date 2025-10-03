@@ -6,7 +6,6 @@ import { Heading } from "@/components/ui/heading"
 import { Button } from "@/components/ui/button"
 import ElysianEmporiumErrorLogo from "@/public/logo/elysian-emporium-ecommerce-logo-error.svg"
 
-
 const Unauthorized = () => {
   return (
     <Container
@@ -43,9 +42,7 @@ const Unauthorized = () => {
 
       <div className="grid grid-cols-1 space-x-2">
         <Link href={"/"}>
-          <Button variant={"destructive"}>
-            Home
-          </Button>
+          <Button variant={"destructive"}>Home</Button>
         </Link>
       </div>
     </Container>

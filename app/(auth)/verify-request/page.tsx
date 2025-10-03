@@ -1,45 +1,45 @@
-"use client";
+"use client"
 
-import React, { Suspense, useState, useTransition } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
+import React, { Suspense, useState, useTransition } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import Image from "next/image"
+import { toast } from "sonner"
+import { authClient } from "@/lib/auth-client"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+  InputOTPSlot
+} from "@/components/ui/input-otp"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import ElysianEmporiumEcommerceLogo from "@/public/logo/elysian-emporium-ecommerce-logo.svg";
+  CardTitle
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import ElysianEmporiumEcommerceLogo from "@/public/logo/elysian-emporium-ecommerce-logo.svg"
 
 export default function VerificationRequestRoute() {
   return (
     <Suspense>
       <VerificationRequestPage />
     </Suspense>
-  );
+  )
 }
 
 function VerificationRequestPage() {
-  const router = useRouter();
+  const router = useRouter()
   // store otp value
-  const [otp, setOtp] = useState("");
-  const [emailPending, startEmailTransition] = useTransition();
+  const [otp, setOtp] = useState("")
+  const [emailPending, startEmailTransition] = useTransition()
   //   fetch email from params
-  const params = useSearchParams();
-  const email = params.get("email") as string;
+  const params = useSearchParams()
+  const email = params.get("email") as string
 
   //   check if OTP is complete
-  const isOtpComplete = otp.length === 6;
+  const isOtpComplete = otp.length === 6
 
   function verifyOtp() {
     startEmailTransition(async () => {
@@ -48,19 +48,19 @@ function VerificationRequestPage() {
         otp: otp,
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Email verfied successfully");
-            router.push("/");
+            toast.success("Email verfied successfully")
+            router.push("/")
           },
           onError: () => {
-            toast.error(" Internal Server Error Email not verified ");
-          },
-        },
-      });
-    });
+            toast.error(" Internal Server Error Email not verified ")
+          }
+        }
+      })
+    })
   }
 
   return (
-    <div className=" flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
         <a href="#" className="flex items-center gap-2 self-center font-medium">
           <div className="flex size-6 items-center justify-center rounded-md">
@@ -84,7 +84,7 @@ function VerificationRequestPage() {
                 maxLength={6}
                 className="gap-2"
                 value={otp}
-                onChange={(value) => setOtp(value)}
+                onChange={value => setOtp(value)}
               >
                 <InputOTPGroup>
                   <InputOTPSlot index={0} />
@@ -99,7 +99,7 @@ function VerificationRequestPage() {
                 </InputOTPGroup>
               </InputOTP>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Please enter the verification code sent to your email address.
               </p>
             </div>
@@ -115,5 +115,5 @@ function VerificationRequestPage() {
         </Card>
       </div>
     </div>
-  );
+  )
 }

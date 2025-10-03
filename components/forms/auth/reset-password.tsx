@@ -1,68 +1,68 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import React, { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
-import { resetPasswordFormSchema } from "@/schemas/auth/reset-password";
-import { Spinner } from "@/components/ui/spinner";
+  FormMessage
+} from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { authClient } from "@/lib/auth-client"
+import { resetPasswordFormSchema } from "@/schemas/auth/reset-password"
+import { Spinner } from "@/components/ui/spinner"
 
 const ResetPasswordForm = ({
   className,
   ...props
 }: React.ComponentProps<"form">) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
-  const token = searchParams.get("token") as string;
+  const token = searchParams.get("token") as string
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
       password: "",
-      confirmPassword: "",
-    },
-  });
+      confirmPassword: ""
+    }
+  })
 
   async function onSubmit(values: z.infer<typeof resetPasswordFormSchema>) {
-    setIsLoading(true);
+    setIsLoading(true)
 
     if (values.password !== values.confirmPassword) {
-      toast.error("Passwords do not match");
-      setIsLoading(false);
-      return;
+      toast.error("Passwords do not match")
+      setIsLoading(false)
+      return
     }
 
     const { error } = await authClient.resetPassword({
       newPassword: values.password,
-      token,
-    });
+      token
+    })
 
     if (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     } else {
-      toast.success("Password reset successfully");
-      router.push("/sign-in");
+      toast.success("Password reset successfully")
+      router.push("/sign-in")
     }
 
-    setIsLoading(false);
+    setIsLoading(false)
   }
   return (
     <Form {...form}>
@@ -86,7 +86,7 @@ const ResetPasswordForm = ({
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input  {...field} type="password" placeholder="password"/>
+                    <Input {...field} type="password" placeholder="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,11 +111,7 @@ const ResetPasswordForm = ({
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? (
-              <Spinner  />
-            ) : (
-              "Reset Password"
-            )}
+            {isLoading ? <Spinner /> : "Reset Password"}
           </Button>
         </div>
         <div className="text-center text-sm">
@@ -126,7 +122,7 @@ const ResetPasswordForm = ({
         </div>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default ResetPasswordForm;
+export default ResetPasswordForm

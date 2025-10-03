@@ -1,30 +1,30 @@
-import React from "react";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { auth } from "@/lib/auth";
-import SignUpForm from "@/components/forms/auth/sign-up";
-import ElysianEmporiumEcommerceLogo from "@/public/logo/elysian-emporium-ecommerce-logo.svg";
-import ElysianEmporiumSignUpDark from "@/public/images/sign-up-design-dark.png";
-import ElysianEmporiumSignUpLight from "@/public/images/sign-up-design-light.png";
+import React from "react"
+import { headers } from "next/headers"
+import { redirect } from "next/navigation"
+import Image from "next/image"
+import Link from "next/link"
+import { auth } from "@/lib/auth"
+import SignUpForm from "@/components/forms/auth/sign-up"
+import ElysianEmporiumEcommerceLogo from "@/public/logo/elysian-emporium-ecommerce-logo.svg"
+import ElysianEmporiumSignUpDark from "@/public/images/sign-up-design-dark.png"
+import ElysianEmporiumSignUpLight from "@/public/images/sign-up-design-light.png"
 
 const SignUpPage = async () => {
-   // check user session
+  // check user session
   const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+    headers: await headers()
+  })
 
   // if theres a session redirect to  root page
   if (session) {
-    return redirect("/");
+    return redirect("/")
   }
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <Link href="#" className="flex items-center gap-2 font-medium">
-            <div className="flex size-8 items-center justify-center ">
+            <div className="flex size-8 items-center justify-center">
               <Image
                 src={ElysianEmporiumEcommerceLogo}
                 alt="Elysian logo"
@@ -46,14 +46,14 @@ const SignUpPage = async () => {
           alt="Elysian logo"
           className="absolute inset-0 h-full w-full object-cover dark:hidden"
         />
-          <Image
+        <Image
           src={ElysianEmporiumSignUpLight}
           alt="Elysian logo"
-          className="absolute inset-0 h-full w-full object-cover  hidden dark:block"
+          className="absolute inset-0 hidden h-full w-full object-cover dark:block"
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUpPage;
+export default SignUpPage

@@ -1,34 +1,34 @@
-import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { admin } from "better-auth/plugins";
-import { organization } from "better-auth/plugins";
-import { lastLoginMethod } from "better-auth/plugins";
-import { emailOTP } from "better-auth/plugins";
-import { nextCookies } from "better-auth/next-js";
+import { betterAuth } from "better-auth"
+import { prismaAdapter } from "better-auth/adapters/prisma"
+import { admin } from "better-auth/plugins"
+import { organization } from "better-auth/plugins"
+import { lastLoginMethod } from "better-auth/plugins"
+import { emailOTP } from "better-auth/plugins"
+import { nextCookies } from "better-auth/next-js"
 
-import { prisma } from "@/lib/prisma/client";
-import { env } from "@/env/server";
-import { resend } from "@/lib/email/resend";
+import { prisma } from "@/lib/prisma/client"
+import { env } from "@/env/server"
+import { resend } from "@/lib/email/resend"
 
-import ResetPasswordEmail from "@/components/emails/reset-password";
-import EmailVerification from "@/components/emails/email-verification";
-import OneTimePasswordEmail from "@/components/emails/one-time-password";
+import ResetPasswordEmail from "@/components/emails/reset-password"
+import EmailVerification from "@/components/emails/email-verification"
+import OneTimePasswordEmail from "@/components/emails/one-time-password"
 
 export const auth = betterAuth({
   // database setup
   database: prismaAdapter(prisma, {
-    provider: "postgresql",
+    provider: "postgresql"
   }),
   // social providers github/google
   socialProviders: {
     github: {
       clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
+      clientSecret: env.GITHUB_CLIENT_SECRET
     },
     google: {
       clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    },
+      clientSecret: env.GOOGLE_CLIENT_SECRET
+    }
   },
   // basic authentication
   emailAndPassword: {
@@ -41,11 +41,11 @@ export const auth = betterAuth({
         react: ResetPasswordEmail({
           username: user.name,
           resetUrl: url,
-          userEmail: user.email,
-        }),
-      });
+          userEmail: user.email
+        })
+      })
     },
-    requireEmailVerification: false,
+    requireEmailVerification: false
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
@@ -53,10 +53,10 @@ export const auth = betterAuth({
         from: "Elysian Emporium Ecommerce <onboarding@resend.dev>",
         to: user.email,
         subject: "Verify your email",
-        react: EmailVerification({ username: user.name, verifyUrl: url }),
-      });
+        react: EmailVerification({ username: user.name, verifyUrl: url })
+      })
     },
-    sendOnSignUp: true,
+    sendOnSignUp: true
   },
 
   // plugins
@@ -74,11 +74,11 @@ export const auth = betterAuth({
           react: OneTimePasswordEmail({
             username: email,
             userEmail: email,
-            otp,
-          }),
-        });
-      },
+            otp
+          })
+        })
+      }
     }),
-    nextCookies(),
-  ],
-});
+    nextCookies()
+  ]
+})

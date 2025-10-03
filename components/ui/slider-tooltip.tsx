@@ -3,13 +3,13 @@
 import * as React from "react"
 import { Slider as SliderPrimitive } from "radix-ui"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+  TooltipTrigger
+} from "@/components/ui/tooltip"
 
 function Slider({
   className,

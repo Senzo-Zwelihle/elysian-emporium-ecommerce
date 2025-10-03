@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react"
 
 interface CustomIconProps extends React.SVGProps<SVGSVGElement> {
-  size?: number | string;
+  size?: number | string
 }
 
 const CrownIcon = React.forwardRef<SVGSVGElement, CustomIconProps>(
@@ -22,9 +22,9 @@ const CrownIcon = React.forwardRef<SVGSVGElement, CustomIconProps>(
         fill="#4101D6"
       />
     </svg>
-  ),
-);
+  )
+)
 
-CrownIcon.displayName = 'CrownIcon';
+CrownIcon.displayName = "CrownIcon"
 
-export { CrownIcon };
+export { CrownIcon }

@@ -1,10 +1,10 @@
-"use client";
-import { ChevronRight, type LucideIcon } from "lucide-react";
+"use client"
+import { ChevronRight, type LucideIcon } from "lucide-react"
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  CollapsibleTrigger
+} from "@/components/ui/collapsible"
 import {
   SidebarGroup,
   SidebarMenu,
@@ -13,27 +13,27 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
+  SidebarMenuSubItem
+} from "@/components/ui/sidebar"
 
 const NavigationMain = ({
-  items,
+  items
 }: {
   items: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-    isActive?: boolean;
+    title: string
+    url: string
+    icon: LucideIcon
+    isActive?: boolean
     items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
+      title: string
+      url: string
+    }[]
+  }[]
 }) => {
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map(item => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title}>
@@ -52,7 +52,7 @@ const NavigationMain = ({
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
+                      {item.items?.map(subItem => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
                             <a href={subItem.url}>
@@ -70,7 +70,7 @@ const NavigationMain = ({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  );
-};
+  )
+}
 
-export default NavigationMain;
+export default NavigationMain

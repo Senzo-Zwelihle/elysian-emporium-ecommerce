@@ -1,7 +1,7 @@
-"use client";
-import Link from "next/link";
-import { BadgeCheck, Bell, EllipsisVerticalIcon, LogOut } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+"use client"
+import Link from "next/link"
+import { BadgeCheck, Bell, EllipsisVerticalIcon, LogOut } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,32 +9,32 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
-import { authClient } from "@/lib/auth-client";
-import { useSignOut } from "@/hooks/use-sign-out";
+  useSidebar
+} from "@/components/ui/sidebar"
+import { authClient } from "@/lib/auth-client"
+import { useSignOut } from "@/hooks/use-sign-out"
 
 const NavigationUser = ({}: {
   user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
+    name: string
+    email: string
+    avatar: string
+  }
 }) => {
-  const { isMobile } = useSidebar();
+  const { isMobile } = useSidebar()
   // user session
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession()
 
-  const handleSignOut = useSignOut();
+  const handleSignOut = useSignOut()
 
   if (isPending) {
-    return null;
+    return null
   }
   return (
     <SidebarMenu>
@@ -125,7 +125,7 @@ const NavigationUser = ({}: {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  );
-};
+  )
+}
 
-export default NavigationUser;
+export default NavigationUser

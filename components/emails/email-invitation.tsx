@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import {
   Body,
   Button,
@@ -11,19 +11,19 @@ import {
   Preview,
   Section,
   Text,
-  Tailwind,
-} from "@react-email/components";
-import { env } from "@/env/server";
+  Tailwind
+} from "@react-email/components"
+import { env } from "@/env/server"
 
 interface InvitationEmailProps {
-  inviterName: string;
-  organizationName: string;
-  acceptUrl: string;
+  inviterName: string
+  organizationName: string
+  acceptUrl: string
 }
 
 const InvitationEmail = (props: InvitationEmailProps) => {
-  const { inviterName, organizationName, acceptUrl } = props;
-  const logoUrl = `${env.ELYSIAN_EMPORIUM_ECOMMERCE_LOGO}`;
+  const { inviterName, organizationName, acceptUrl } = props
+  const logoUrl = `${env.ELYSIAN_EMPORIUM_ECOMMERCE_LOGO}`
 
   return (
     <Html lang="en" dir="ltr">
@@ -31,7 +31,7 @@ const InvitationEmail = (props: InvitationEmailProps) => {
         <Head />
         <Body className="bg-white font-sans">
           <Preview>You&apos;ve been invited to join {organizationName}</Preview>
-          <Container className="max-w-[600px] mx-auto">
+          <Container className="mx-auto max-w-[600px]">
             {/* Header */}
             <Section className="px-[40px] pt-[48px] pb-[32px]">
               <Img
@@ -45,36 +45,36 @@ const InvitationEmail = (props: InvitationEmailProps) => {
 
             {/* Main Content */}
             <Section className="px-[40px] pb-[48px]">
-              <Heading className="text-[28px] font-semibold text-gray-900 text-center mb-[32px] leading-[34px]">
+              <Heading className="mb-[32px] text-center text-[28px] leading-[34px] font-semibold text-gray-900">
                 Join {organizationName}
               </Heading>
 
-              <Text className="text-[16px] text-gray-700 leading-[24px] mb-[32px] text-center">
+              <Text className="mb-[32px] text-center text-[16px] leading-[24px] text-gray-700">
                 Hi there, you have been invited by {inviterName} to join the
                 organization &apos;{organizationName}&apos;.
               </Text>
 
               {/* Accept Button */}
-              <Section className="text-center mb-[32px]">
+              <Section className="mb-[32px] text-center">
                 <Button
                   href={acceptUrl}
-                  className="bg-[#4D00FF] text-white px-[40px] py-[14px] rounded-full text-[16px] font-medium no-underline box-border inline-block"
+                  className="box-border inline-block rounded-full bg-[#4D00FF] px-[40px] py-[14px] text-[16px] font-medium text-white no-underline"
                 >
                   Accept Invitation
                 </Button>
               </Section>
 
               {/* Alternative Link */}
-              <Text className="text-[14px] text-gray-600 leading-[20px] mb-[32px] text-center">
+              <Text className="mb-[32px] text-center text-[14px] leading-[20px] text-gray-600">
                 Or copy and paste this URL into your browser:
                 <br />
-                <Link href={acceptUrl} className="text-[#4D00FF] break-all">
+                <Link href={acceptUrl} className="break-all text-[#4D00FF]">
                   {acceptUrl}
                 </Link>
               </Text>
 
               {/* Didn't Sign Up */}
-              <Text className="text-[14px] text-gray-600 leading-[20px] text-center">
+              <Text className="text-center text-[14px] leading-[20px] text-gray-600">
                 If you believe this is an error, you can safely ignore this
                 email.
               </Text>
@@ -83,7 +83,7 @@ const InvitationEmail = (props: InvitationEmailProps) => {
         </Body>
       </Tailwind>
     </Html>
-  );
-};
+  )
+}
 
-export default InvitationEmail;
+export default InvitationEmail

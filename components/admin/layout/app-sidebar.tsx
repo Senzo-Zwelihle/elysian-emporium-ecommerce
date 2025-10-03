@@ -1,7 +1,7 @@
-'use client';
-import * as React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client"
+import * as React from "react"
+import Image from "next/image"
+import Link from "next/link"
 import {
   Sidebar,
   SidebarContent,
@@ -9,11 +9,11 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-} from '@/components/ui/sidebar';
+  SidebarMenuItem
+} from "@/components/ui/sidebar"
 
-import NavigationMain from '@/components/admin/layout/navigation-main';
-import NavigationUser from '@/components/admin/layout/navigation-user';
+import NavigationMain from "@/components/admin/layout/navigation-main"
+import NavigationUser from "@/components/admin/layout/navigation-user"
 
 import {
   CalendarIcon,
@@ -34,139 +34,138 @@ import {
   TablePropertiesIcon,
   TicketIcon,
   Trash2Icon,
-  UsersRoundIcon,
-} from 'lucide-react';
+  UsersRoundIcon
+} from "lucide-react"
 
-import ElysianEmporiumEcommerceLogo from '@/public/logo/elysian-emporium-ecommerce-logo.svg';
-import NavigationSecondary from './navigation-secondary';
+import ElysianEmporiumEcommerceLogo from "@/public/logo/elysian-emporium-ecommerce-logo.svg"
 
 // data
 
 const data = {
   // placeholder
   user: {
-    name: 'user',
-    email: 'user@email.com',
-    avatar: '/assets/placeholders/avatar-placeholder.png',
+    name: "user",
+    email: "user@email.com",
+    avatar: "/assets/placeholders/avatar-placeholder.png"
   },
   navMain: [
     {
-      title: 'Dashboard',
-      url: '/admin',
-      icon: LayoutDashboardIcon,
+      title: "Dashboard",
+      url: "/admin",
+      icon: LayoutDashboardIcon
     },
     {
-      title: 'Analytics',
-      url: '/admin/analytics',
-      icon: GaugeIcon,
+      title: "Analytics",
+      url: "/admin/analytics",
+      icon: GaugeIcon
     },
     {
-      title: 'Organization',
-      url: '/admin/organization',
-      icon: ShieldUserIcon,
+      title: "Organization",
+      url: "/admin/organization",
+      icon: ShieldUserIcon
     },
     {
-      title: 'Orders',
-      url: '/admin/orders',
-      icon: ShoppingBagIcon,
+      title: "Orders",
+      url: "/admin/orders",
+      icon: ShoppingBagIcon
     },
     {
-      title: 'Products',
-      url: '/admin/products',
-      icon: PackageOpenIcon,
+      title: "Products",
+      url: "/admin/products",
+      icon: PackageOpenIcon
     },
     {
-      title: 'Brands',
-      url: '/admin/brands',
-      icon: LayoutListIcon,
+      title: "Brands",
+      url: "/admin/brands",
+      icon: LayoutListIcon
     },
     {
-      title: 'Categories',
-      url: '/admin/categories',
-      icon: TablePropertiesIcon,
+      title: "Categories",
+      url: "/admin/categories",
+      icon: TablePropertiesIcon
     },
     {
-      title: 'Promotions',
-      url: '/admin/promotions',
-      icon: SparklesIcon,
+      title: "Promotions",
+      url: "/admin/promotions",
+      icon: SparklesIcon
     },
     {
-      title: 'Billboards',
-      url: '/admin/billboards',
-      icon: GalleryThumbnailsIcon,
+      title: "Billboards",
+      url: "/admin/billboards",
+      icon: GalleryThumbnailsIcon
     },
     {
-      title: 'Collections',
-      url: '/admin/collections',
-      icon: FlameIcon,
+      title: "Collections",
+      url: "/admin/collections",
+      icon: FlameIcon
     },
 
     {
-      title: 'Warehouses',
-      url: '/admin/warehouses',
-      icon: MapPinIcon,
+      title: "Warehouses",
+      url: "/admin/warehouses",
+      icon: MapPinIcon
     },
     {
-      title: 'Documents',
-      url: '/admin/documents',
-      icon: LayersIcon,
+      title: "Documents",
+      url: "/admin/documents",
+      icon: LayersIcon
     },
     {
-      title: 'Events',
-      url: '/admin/events',
-      icon: CalendarIcon,
+      title: "Events",
+      url: "/admin/events",
+      icon: CalendarIcon
     },
     {
-      title: 'Users',
-      url: '/admin/users',
-      icon: UsersRoundIcon,
-    },
-     {
-      title: 'Tickets',
-      url: '/admin/tickets',
-      icon: TicketIcon,
+      title: "Users",
+      url: "/admin/users",
+      icon: UsersRoundIcon
     },
     {
-      title: 'Memberships',
-      url: '/admin/memberships',
-      icon: CrownIcon,
+      title: "Tickets",
+      url: "/admin/tickets",
+      icon: TicketIcon
+    },
+    {
+      title: "Memberships",
+      url: "/admin/memberships",
+      icon: CrownIcon
     },
 
     {
-      title: 'Feedback',
-      url: '/admin/feedback',
-      icon: HeartHandshakeIcon,
+      title: "Feedback",
+      url: "/admin/feedback",
+      icon: HeartHandshakeIcon
     },
 
     {
-      title: 'Settings',
-      url: '/admin/settings',
-      icon: SettingsIcon,
-    },
+      title: "Settings",
+      url: "/admin/settings",
+      icon: SettingsIcon
+    }
   ],
   navSecondary: [
     {
-      title: 'Trash',
-      url: '/admin/trash',
+      title: "Trash",
+      url: "/admin/trash",
       icon: Trash2Icon,
       isActive: true,
       items: [
         {
-          title: 'Archives',
-          url: '/admin/trash/archives',
+          title: "Archives",
+          url: "/admin/trash/archives"
         },
         {
-          title: 'Deleted ',
-          url: '/admin/trash/deleted',
-        },
-      ],
-    },
-  ],
-};
+          title: "Deleted ",
+          url: "/admin/trash/deleted"
+        }
+      ]
+    }
+  ]
+}
 
 const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -192,14 +191,14 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       {/* content */}
       <SidebarContent>
         <NavigationMain items={data.navMain} />
-        <NavigationSecondary items={data.navSecondary} />
+        {/* <NavigationSecondary items={data.navSecondary} /> */}
       </SidebarContent>
       {/* user */}
       <SidebarFooter>
         <NavigationUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  );
-};
+  )
+}
 
-export default AppSidebar;
+export default AppSidebar
