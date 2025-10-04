@@ -13,7 +13,6 @@ const Store = () => {
       <Collections />
       <Promotions />
       <PaymentBrands />
-      {/* <FAQsThree/> */}
     </div>
   )
 }
