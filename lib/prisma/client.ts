@@ -1,8 +1,15 @@
 // import "server-only"
-import { PrismaClient } from "@/lib/generated/prisma"
+import { PrismaClient } from "@/lib/generated/prisma";
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-export const prisma = globalForPrisma.prisma || new PrismaClient()
+// Create a regular Prisma Client instance
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
+// In development, reuse the Prisma Client across module reloads
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+}
+

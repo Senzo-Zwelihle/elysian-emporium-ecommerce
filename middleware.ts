@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
-import { isMaintenanceModeEnabled } from "@/lib/maintenance";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -11,17 +10,6 @@ export async function middleware(request: NextRequest) {
       pathname.includes(".") ||
       pathname === "/favicon.ico") {
     return NextResponse.next();
-  }
-  
-  // Check maintenance mode for non-admin routes
-  if (!pathname.startsWith("/admin") && 
-      pathname !== "/maintenance" && 
-      pathname !== "/sign-in" &&
-      pathname !== "/sign-up") {
-    const maintenanceEnabled = await isMaintenanceModeEnabled();
-    if (maintenanceEnabled) {
-      return NextResponse.redirect(new URL("/maintenance", request.url));
-    }
   }
   
   // Skip auth check for public pages
